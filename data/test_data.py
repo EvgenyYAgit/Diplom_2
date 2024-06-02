@@ -48,4 +48,4 @@ def auth_token_and_random_user_data():
     headers = {
         'Authorization': f'{auth_token}'
     }
-    return headers, user_data
+    return headers, create

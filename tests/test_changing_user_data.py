@@ -15,8 +15,8 @@ class TestChangingUserData:
         new_user_name = generate_unique_data()
         new_name = new_user_name[2]
         payload = {
-            "email": f'{user_data[0]}',
-            "password": f'{user_data[1]}',
+            "email": f'{user_data["email"]}',
+            "password": f'{user_data["password"]}',
             "name": f'{new_name}'
         }
         response = requests.patch(changing_data, headers=headers, data=payload)
@@ -31,8 +31,8 @@ class TestChangingUserData:
         new_email = new_user_email[0]
         payload = {
             "email": f'{new_email}',
-            "password": f'{user_data[1]}',
-            "name": f'{user_data[2]}'
+            "password": f'{user_data["password"]}',
+            "name": f'{user_data["name"]}'
         }
         response = requests.patch(changing_data, headers=headers, data=payload)
         assert f'{new_email}' == response.json()["user"]["email"] and 200 == response.status_code
