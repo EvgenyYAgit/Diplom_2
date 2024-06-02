@@ -1,13 +1,15 @@
 import requests
 import allure
-from date.urls import creating_order
-from date.variables import ingred_burger, two_inredients
+import data.test_data
+from data.urls import creating_order
+from data.variables import ingred_burger, two_inredients
 
 
 class TestCreateOrder:
 
     @allure.title('Создание заказа с авторизацией')
-    def test_with_authorization(self, headers_registered_user):
+    def test_with_authorization(self):
+        headers_registered_user = data.test_data.headers_registered_user()
         ingredient = {"ingredients": [ingred_burger]}
         response = requests.post(creating_order, headers=headers_registered_user, data=ingredient)
         assert "Gintama" == response.json()["order"]["owner"]["name"] and 200 == response.status_code
