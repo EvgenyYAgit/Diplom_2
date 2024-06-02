@@ -13,3 +13,17 @@ incorrect_login_and_password = {
             "password": "423782",
             "name": "Gintama"
         }
+
+# тексты ответов
+ok = 200
+bad_request = 400
+unauthorized = 401
+forbidden = 403
+internal_server_error = 500
+text_forbidden_exists = "User already exists"
+text_forbidden_requerd = "Email, password and name are required fields"
+text_unauthorized = "You should be authorised"
+text_unauthorized_incorrect = "email or password are incorrect"
+text_bad_request = "Ingredient ids must be provided"
+name_hero = "Gintama"
+name_burger = "Флюоресцентный бургер"

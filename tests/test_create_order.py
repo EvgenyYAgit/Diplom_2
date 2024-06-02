@@ -1,8 +1,8 @@
 import requests
 import allure
 import data.test_data
+import data.variables
 from data.urls import creating_order
-from data.variables import ingred_burger, two_inredients
 
 
 class TestCreateOrder:
@@ -10,29 +10,31 @@ class TestCreateOrder:
     @allure.title('Создание заказа с авторизацией')
     def test_with_authorization(self):
         headers_registered_user = data.test_data.headers_registered_user()
-        ingredient = {"ingredients": [ingred_burger]}
+        ingredient = {"ingredients": [data.variables.ingred_burger]}
         response = requests.post(creating_order, headers=headers_registered_user, data=ingredient)
-        assert "Gintama" == response.json()["order"]["owner"]["name"] and 200 == response.status_code
+        assert data.variables.name_hero == response.json()["order"]["owner"][
+            "name"] and data.variables.ok == response.status_code
 
     @allure.title('Создание заказа без авторизации')
     def test_without_authorization(self):
-        ingredient = {"ingredients": [ingred_burger]}
+        ingredient = {"ingredients": [data.variables.ingred_burger]}
         response = requests.post(creating_order, data=ingredient)
-        assert "Флюоресцентный бургер" == response.json()["name"] and 200 == response.status_code
+        assert data.variables.name_burger == response.json()["name"] and data.variables.ok == response.status_code
 
     @allure.title('Создание заказа с ингредиентами')
     def test_with_ingredients(self):
-        ingredients = {"ingredients": two_inredients}
+        ingredients = {"ingredients": data.variables.two_inredients}
         response = requests.post(creating_order, data=ingredients)
-        assert response.json()["success"] and 200 == response.status_code
+        assert response.json()["success"] and data.variables.ok == response.status_code
 
     @allure.title('Создание заказа без ингредиентов')
     def test_without_ingredients(self):
         response = requests.post(creating_order)
-        assert "Ingredient ids must be provided" == response.json()["message"] and 400 == response.status_code
+        assert data.variables.text_bad_request == response.json()[
+            "message"] and data.variables.bad_request == response.status_code
 
     @allure.title('Создание заказа с неверным хешем ингредиентов')
     def test_with_incorrect_ingredient_hash(self):
         ingredient = {"ingredients": ["nothing"]}
         response = requests.post(creating_order, data=ingredient)
-        assert 500 == response.status_code
+        assert data.variables.internal_server_error == response.status_code
