@@ -1,10 +1,12 @@
+# главный url
+general_url = "https://stellarburgers.nomoreparties.site"
 # создание пользователя
-creating_user = "https://stellarburgers.nomoreparties.site/api/auth/register"
+creating_user = general_url + "/api/auth/register"
 # логин пользователя
-login_user = "https://stellarburgers.nomoreparties.site/api/auth/login"
+login_user = general_url + "/api/auth/login"
 # изменение данных пользователя
-changing_data = "https://stellarburgers.nomoreparties.site/api/auth/user"
+changing_data = general_url + "/api/auth/user"
 # создание заказа
-creating_order = "https://stellarburgers.nomoreparties.site/api/orders"
+creating_order = general_url + "/api/orders"
 # получение заказа пользователя
-get_order = "https://stellarburgers.nomoreparties.site/api/orders"
+get_order = general_url + "/api/orders"
