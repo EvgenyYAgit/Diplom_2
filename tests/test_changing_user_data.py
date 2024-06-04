@@ -2,7 +2,8 @@ import requests
 import allure
 from data.urls import changing_data
 from data.generate_unique_user import generate_unique_data
-import data.test_data
+from data.test_data import payload_registered_user
+import data.helpers
 import data.variables
 
 
@@ -10,7 +11,7 @@ class TestChangingUserData:
 
     @allure.title('Изменение данных name пользователя с авторизацией')
     def test_with_authorization_change_name(self):
-        auth_token_and_random_user_data = data.test_data.auth_token_and_random_user_data()
+        auth_token_and_random_user_data = data.helpers.auth_token_and_random_user_data()
         headers = auth_token_and_random_user_data[0]
         user_data = auth_token_and_random_user_data[1]
         new_user_name = generate_unique_data()
@@ -25,7 +26,7 @@ class TestChangingUserData:
 
     @allure.title('Изменение данных email пользователя с авторизацией')
     def test_with_authorization_change_email(self):
-        auth_token_and_random_user_data = data.test_data.auth_token_and_random_user_data()
+        auth_token_and_random_user_data = data.helpers.auth_token_and_random_user_data()
         headers = auth_token_and_random_user_data[0]
         user_data = auth_token_and_random_user_data[1]
         new_user_email = generate_unique_data()
@@ -40,6 +41,6 @@ class TestChangingUserData:
 
     @allure.title('Изменение данных пользователя без авторизации')
     def test_without_authorization(self):
-        payload_registered_user = data.test_data.payload_registered_user()
         response = requests.patch(changing_data, data=payload_registered_user)
-        assert data.variables.text_unauthorized == response.json()["message"] and data.variables.unauthorized == response.status_code
+        assert data.variables.text_unauthorized == response.json()[
+            "message"] and data.variables.unauthorized == response.status_code

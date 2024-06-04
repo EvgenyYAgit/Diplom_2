@@ -1,7 +1,7 @@
 import requests
 import allure
-import data.test_data
 import data.variables
+import data.helpers
 from data.urls import creating_order
 
 
@@ -9,7 +9,7 @@ class TestCreateOrder:
 
     @allure.title('Создание заказа с авторизацией')
     def test_with_authorization(self):
-        headers_registered_user = data.test_data.headers_registered_user()
+        headers_registered_user = data.helpers.headers_registered_user()
         ingredient = {"ingredients": [data.variables.ingred_burger]}
         response = requests.post(creating_order, headers=headers_registered_user, data=ingredient)
         assert data.variables.name_hero == response.json()["order"]["owner"][
